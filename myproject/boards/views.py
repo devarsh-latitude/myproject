@@ -8,5 +8,6 @@ def home(request):
     return render(request,'home.html',{'boards':boards})
 
 def boards_topics(request,pk):
-    board=Board.objects.get(id=pk)
+    print("hee",pk)
+    board=Board.objects.get(pk=pk)
     return render(request,'topics.html',{'board':board})
