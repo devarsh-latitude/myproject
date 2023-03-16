@@ -24,9 +24,11 @@ from boards import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',views.home,name='home'),
+    # path('',views.home,name='home'),
+    path('boards/<int:pk>/', views.TopicListView.as_view(), name='board_topics'),
+    path('', views.BoardListView.as_view(), name='home'),
     path('signup/',accounts_views.signup, name='signup'),
-    re_path(r'^boards/(?P<pk>\d+)/$', views.board_topics, name='board_topics'),
+    # re_path(r'^boards/(?P<pk>\d+)/$', views.board_topics, name='board_topics'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
     re_path(r'^boards/(?P<pk>\d+)/new/$', views.new_topic, name='new_topic'),
@@ -50,6 +52,8 @@ path('reset/complete/',
     name='password_change'),
 path('settings/password/done/', auth_views.PasswordChangeDoneView.as_view(template_name='password_change_done.html'),
     name='password_change_done'),
-    path('boards/<int:pk>/topics/<int:topic_pk>/', views.topic_posts, name='topic_posts'),
+    path('settings/account/', accounts_views.UserUpdateView.as_view(), name='my_account'),
+    path('boards/<int:pk>/topics/<int:topic_pk>/', views.PostListView.as_view(), name='topic_posts'),
     path('boards/<int:pk>/topics/<int:topic_pk>/reply/', views.reply_topic, name='reply_topic'),
+    path('boards/<int:pk>/topics/<int:topic_pk>/posts/<int:post_pk>/edit/',views.PostUpdateView.as_view(), name='edit_post'),
 ]
